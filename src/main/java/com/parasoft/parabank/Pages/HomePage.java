@@ -6,14 +6,14 @@ import org.openqa.selenium.support.PageFactory;
 
 import com.parasoft.parabank.BasePackage.TestBase;
 
-public class RegisterPage extends TestBase {
+public class HomePage extends TestBase {
 
-	public RegisterPage() {
+	public HomePage() {
 
 		PageFactory.initElements(driver, this);
 	}
 
-	// web elements for Registering a user
+	// web elements for Registering a user --------------------
 	@FindBy(id = "customer.firstName")
 	WebElement firstNameInput;
 
@@ -50,7 +50,7 @@ public class RegisterPage extends TestBase {
 	@FindBy(css = "td input.button")
 	WebElement registerButton;
 
-	// web elements for user Login
+	// web elements for user Login --------------------
 	@FindBy(name = "username")
 	WebElement loginUsernameInput;
 
@@ -59,7 +59,9 @@ public class RegisterPage extends TestBase {
 
 	@FindBy(css = "div.login input.button")
 	WebElement loginButton;
+
 	
+	//Actions to Register new user --------------------
 	public void enterFirstName(String firstName) {
 		firstNameInput.sendKeys(firstName);
 	}
@@ -104,8 +106,23 @@ public class RegisterPage extends TestBase {
 		confirmPwdInput.sendKeys(password);
 	}
 	
-	public CustomerAccountPage submitRegistration() {
+	public CustomerCreatedPage submitRegistration() {
 		registerButton.submit();
-		return new CustomerAccountPage();
+		return new CustomerCreatedPage();
+	}
+	
+	
+	//Login Actions  ----------------------------------------
+	public void enterUsernameToLogin(String username) {
+		loginUsernameInput.sendKeys(username);
+	}
+	
+	public void enterPasswordToLogin(String password) {
+		loginPasswordInput.sendKeys(password);
+	}
+	
+	public AccountsOverviewPage customerLogin() {
+		loginButton.submit();
+		return new AccountsOverviewPage();
 	}
 }
