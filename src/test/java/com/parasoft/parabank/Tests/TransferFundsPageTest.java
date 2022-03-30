@@ -49,7 +49,7 @@ public class TransferFundsPageTest extends TestBase{
 	
 	@AfterMethod
 	public void closeBrowser() {
-		driver.quit();
+		tearDown();
 	}
 
 }

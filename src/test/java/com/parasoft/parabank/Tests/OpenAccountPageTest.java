@@ -48,6 +48,6 @@ public class OpenAccountPageTest extends TestBase {
 	
 	@AfterMethod
 	public void closeBrowser() {
-		driver.quit();
+		tearDown();
 	}
 }
