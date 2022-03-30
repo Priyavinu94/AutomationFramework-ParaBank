@@ -17,7 +17,7 @@ public class OpenNewAccountPage extends TestBase {
 	}
 
 	@FindBy(className = "title")
-	WebElement openAccountTitle;
+	WebElement openAccountFormTitle;
 
 	@FindBy(id = "type")
 	WebElement accTypeDropdown;
@@ -43,8 +43,8 @@ public class OpenNewAccountPage extends TestBase {
 		select.selectByValue(value);
 	}
 	
-	public String getOpenAccountTitle() {
-		return openAccountTitle.getText();
+	public String getFormTitle() {
+		return openAccountFormTitle.getText();
 	}
 	
 	public OpenNewAccountPage clickOpenNewAccButton() {

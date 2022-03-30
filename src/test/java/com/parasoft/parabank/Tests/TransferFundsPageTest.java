@@ -8,23 +8,23 @@ import org.testng.annotations.Test;
 import com.parasoft.parabank.BasePackage.TestBase;
 import com.parasoft.parabank.Pages.AccountsOverviewPage;
 import com.parasoft.parabank.Pages.HomePage;
-import com.parasoft.parabank.Pages.OpenNewAccountPage;
+import com.parasoft.parabank.Pages.TransferFundsPage;
 
-public class OpenAccountPageTest extends TestBase {
-
+public class TransferFundsPageTest extends TestBase{
+	
 	HomePage homePage;
 	AccountsOverviewPage accountPage;
-	OpenNewAccountPage openNewAccountPage;
+	TransferFundsPage transferFundsPage;
 
 	@BeforeMethod
 	public void openBrowser() {
 		intialiseDriver();
 		homePage = new HomePage();
 	}
-
+	
 	@Test
-	public void verifyUserCanOpenNewAccount() {
-
+	public void verifyUserCanTransferFunds() {
+		
 		homePage.enterUsernameToLogin(prop.getProperty("username"));
 		homePage.enterPasswordToLogin(prop.getProperty("password"));
 
@@ -32,22 +32,24 @@ public class OpenAccountPageTest extends TestBase {
 
 		String customerFullname = accountPage.getCustomerName();
 		String initialAccountNo = accountPage.getInitialAccountNo();
+		String newAccountNo = accountPage.getNewAccountNo();
 		Assert.assertEquals(customerFullname, prop.getProperty("firstName") + " " + prop.getProperty("lastName"));
 		
-		openNewAccountPage = accountPage.clickOpenNewAccount();
-		Assert.assertEquals(openNewAccountPage.getFormTitle(),"Open New Account");
+		transferFundsPage = accountPage.clickTransferFunds();
+		Assert.assertEquals(transferFundsPage.getFormTitle(),"Transfer Funds");
 		
-		openNewAccountPage.selectAccountType(prop.getProperty("newAccountType"));
-		openNewAccountPage.selectTransferFromAccount(initialAccountNo);
-		openNewAccountPage = openNewAccountPage.clickOpenNewAccButton();
-			
-		String newMessage = openNewAccountPage.getSuccessMessage();
-		Assert.assertEquals(newMessage, "Account Opened!", "Account not successfully opened");
+		transferFundsPage.enterTransferAmount(prop.getProperty("transferAmount"));
+		transferFundsPage.selectFromAccount(initialAccountNo);
+		transferFundsPage.selectToAccount(newAccountNo);
+		transferFundsPage = transferFundsPage.submitTransfer();
 		
+		String newMessage = transferFundsPage.getSuccessMessage();
+		Assert.assertEquals(newMessage, "Transfer Complete!", "Transfer not successfully completed");
 	}
 	
 	@AfterMethod
 	public void closeBrowser() {
 		driver.quit();
 	}
+
 }

@@ -1,6 +1,7 @@
 package com.parasoft.parabank.Tests;
 
 import org.testng.Assert;
+import org.testng.annotations.AfterMethod;
 import org.testng.annotations.BeforeMethod;
 import org.testng.annotations.Test;
 
@@ -43,6 +44,11 @@ public class CustomerCreatedPageTest extends TestBase {
 		
 		Assert.assertEquals(getConfirmationText, "Your account was created successfully. You are now logged in.",
 				"Confirmation message not as expected");
+	}
+	
+	@AfterMethod
+	public void closeBrowser() {
+		driver.quit();
 	}
 
 }
